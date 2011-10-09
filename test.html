@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="someNode"></div>
+
+<script src="require-0.27.1.js"></script>
+<script>
+if (typeof console == 'undefined') {
+    console = {
+        log : function (d) {
+            document.getElementById('someNode').innerHTML += d;
+        }
+    };
+}
+
+console.log('there are 5 tests');
+require({
+        YUI : {
+            src     : 'yui-min.js',
+            timeout : 1000
+        }
+    },
+    ['UseYUI!dd,anim',
+     'UseYUI!cookie'], function (Y, X) {
+    var a = new Y.Anim();
+    console.log((typeof Y.Anim !== 'undefined' ? 'passed' : 'failed' ) + 
+                 ' test 1');
+    console.log((typeof Y.Cookie === 'undefined' ? 'passed' : 'failed' ) + 
+                 ' test 2');
+    console.log((typeof X.Cookie !== 'undefined' ? 'passed' : 'failed' ) + 
+                 ' test 3');
+});
+
+require(
+    ['UseYUI!cookie'], function (Y)
+{
+    console.log((typeof Y.Cookie !== 'undefined' ? 'passed' : 'failed' ) + 
+                 ' test 4');
+});
+
+require(
+    { YUI : 'yui-min.js'},
+    ['UseYUI!cookie'], function (Y)
+{
+    console.log((typeof Y.Cookie !== 'undefined' ? 'passed' : 'failed' ) + 
+                 ' test 5');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+UseYUI is a plugin for RequireJS, that let's you load YUI 3 into requireJS 
+application.
+
+version   0.1
+author    Wilco Fiers <wilco@wilcofiers.com>
+license   New BSD License
+copyright Wilco Fiers, 2011
+
+By coma seperating the module names you want YUI to preload
+you can chain multiple YUI dependencies to a single instance of YUI.
+Example:
+<script src="YUI-min.js"></script>
+<script src="require.js"></script>
+<script>
+// If you only want to load the core simply request UseYUI!YUI:
+require(['UseYUI!YUI'], function (YUI_core) {
+    // do stuff with YUI core
+}
+
+// Or you can use coma seperated module names to load the modules you need:
+require(['UseYUI!node,anim'], function (Y) {
+   // Do stuff with Y.anim and YUI node 
+}
+</script>
+
+UseYUI looks for the YUI property if you've used an options object on RequireJS.
+To include YUI, you can either load YUI before requiring modules, or use the 
+config options in RequireJS to have it load YUI for you. The same RequireJS 
+config property also allows you to pass a config option to YUI. Use either one 
+of the following methods:
+
+<script src="require.js"></script>
+<script>
+// load YUI without config, by setting the location on the YUI option:
+require({YUI : 'yui-min.js', [],
+    function (Y), {
+        // ... application here
+    });
+
+// Or provide a config object for YUI in the option for requirejs, and add 
+// src to tell UseYUI where to find YUI:
+require({YUI : { src : 'yui-min.js', more_yui_config: 'here'} ... );
+</script>
